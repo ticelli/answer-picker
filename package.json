@@ -1,0 +1,27 @@
+{
+  "name": "ticelli-answer-picker",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ticelli/answer-picker.git"
+  },
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/ticelli/answer-picker/issues"
+  },
+  "homepage": "https://github.com/ticelli/answer-picker#readme",
+  "devDependencies": {
+    "eslint": "^4.12.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0"
+  },
+  "dependencies": {
+    "handlebars": "^4.0.11",
+    "lodash.get": "^4.4.2",
+    "ticelli-bot": "github:ticelli/bot"
+  }
+}
