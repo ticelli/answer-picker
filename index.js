@@ -39,7 +39,6 @@ module.exports = class AnswerPicker extends AbstractRouter {
       const template = handlebars.compile(translation.template);
       return template(vars);
     } catch (e) {
-      console.log(e);
       return templateId;
     }
   }
