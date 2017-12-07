@@ -27,25 +27,31 @@ module.exports = class AnswerPicker extends AbstractRouter {
       vars = Object.assign(...params);
     }
     try {
-      const translations = []
+      let translations = []
         .concat(this.translations[locale][templateId])
         .map(t => {
           if (typeof t === 'string') {
-            return {
+            t = {
               required: [],
               template: t,
             };
           }
-          return t;
-        })
-        .filter(({ required }) => {
-          for (const r of required) {
+
+          t.weight = 0;
+
+          for (const r of t.required) {
             if (!get(vars, r)) {
               return false;
+            } else {
+              t.weight = 1;
             }
           }
-          return true;
-        });
+
+          return t;
+        })
+        .filter(t => !!t);
+      const maxWeight = translations.reduce((max, t) => t.weight > max ? t.weight : max, 0);
+      translations = translations.filter(t => t.weight === maxWeight);
       const index = Math.floor(Math.random() * translations.length);
       const translation = translations[index];
       const template = handlebars.compile(translation.template);
