@@ -9,11 +9,23 @@ module.exports = class AnswerPicker extends AbstractRouter {
   }
 
   run(train) {
-    train.hang({ answerPicker: this });
+    train
+      .hang({ answerPicker: this })
+      .hang({
+        translate: this.pick.bind(this, train.locale || this.config.defaultLocale || 'en'),
+      })
+    ;
     return super.run(train);
   }
 
-  pick(locale, templateId, vars) {
+  pick(locale, ...params) {
+    const templateId = params.shift();
+    let vars = {};
+    if (params.length === 1) {
+      [vars] = params;
+    } else if (params.length > 1) {
+      vars = Object.assign(...params);
+    }
     try {
       const translations = []
         .concat(this.translations[locale][templateId])
